@@ -35,9 +35,9 @@ class UrlGenerator
      */
     public function generate(string $action, string $entity, string $param = null) : string
     {
-        $url = $this->baseUri.Pluralizer::pluzalize($entity).'/';
+        $url = $this->baseUri.Pluralizer::pluzalize($entity);
         if (!in_array($action, [ActionList::CREATE, ActionList::LIST]) && null !== $param) {
-            $url .= $param.'/';
+            $url .= '/'.$param;
         }
 
         return $url;
