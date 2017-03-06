@@ -1,0 +1,22 @@
+{
+    "name": "artifakt/cli",
+    "description": "Arifakt.io CLI",
+    "type": "project",
+    "require": {
+        "symfony/console": "^3.2",
+        "symfony/dependency-injection": "^3.2",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "authors": [
+        {
+            "name": "lyrikz",
+            "email": "lyrikz@artifakt.io"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "": "src/",
+            "App\\": "app/"
+        }
+    }
+}
