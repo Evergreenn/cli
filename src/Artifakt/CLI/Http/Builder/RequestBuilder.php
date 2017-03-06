@@ -140,11 +140,11 @@ class RequestBuilder
     }
 
     /**
-     * @param mixed $body
+     * @param string $body
      *
      * @return RequestBuilder
      */
-    public function setBody($body) : RequestBuilder
+    public function setBody(string $body = '') : RequestBuilder
     {
         $this->body = $body;
 

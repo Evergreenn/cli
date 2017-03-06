@@ -67,6 +67,7 @@ class ArtifaktCommand extends Command
             ->addArgument('action', InputArgument::REQUIRED, 'Action to execute')
             ->addArgument('entity', InputArgument::REQUIRED, 'Entity name')
             ->addArgument('id', InputArgument::OPTIONAL, 'The entity unique identifier')
+            ->addArgument('json', InputArgument::OPTIONAL, 'Path to json file')
             ->addOption('token', 't', InputOption::VALUE_OPTIONAL, 'Artifakt API Token');
     }
 
@@ -118,11 +119,17 @@ class ArtifaktCommand extends Command
                 throw new \LogicException('Dafuq? ¯\_(ツ)_/¯');
         }
 
+        $body = '';
+        $json = $input->getArgument('json');
+        if (null !== $json && is_file($json)) {
+            $body = file_get_contents($json); // Better way?
+        }
+
         $request = $builder
             ->setMethod($method)
             ->addHeader('ARTIFAKT-HELLO-TOKEN', $this->token)
             ->addHeader('CONTENT-TYPE', 'application/json')
-            ->setBody('{"message": "hello"}')
+            ->setBody($body)
             ->getRequest();
 
         $promise = $this->client->sendAsync($request);
