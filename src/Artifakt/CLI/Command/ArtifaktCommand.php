@@ -117,8 +117,8 @@ class ArtifaktCommand extends Command
 
         $request = $builder
             ->setMethod($method)
-            ->addHeader('X-AUTH-TOKEN', $this->token)
-            ->addHeader('CONTENT_TYPE', 'application/json')
+            ->addHeader('ARTIFAKT-HELLO-TOKEN', $this->token)
+            ->addHeader('CONTENT-TYPE', 'application/json')
             ->setBody('Hello')
             ->getRequest();
 
@@ -129,7 +129,7 @@ class ArtifaktCommand extends Command
         $promise->then(
             function (ResponseInterface $response) use ($output) {
                 $output->writeln($response->getStatusCode());
-                $output->writeln($response->getBody());
+                $output->writeln($response->getBody()->getContents());
             },
             function (RequestException $e) use ($output) {
                 $output->writeln($e->getMessage());
