@@ -8,9 +8,7 @@ namespace Artifakt\CLI\Entities\Source;
  */
 class EntityList
 {
-    const PROJECT = 'project';
-    const USER = 'user';
-    const PREFERENCES = 'preferences';
+    const HELLO = 'hello';
     // More entities coming soon...
 
     /**
