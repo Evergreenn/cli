@@ -65,8 +65,8 @@ class ArtifaktCommand extends Command
         $this
             ->setDescription('Artifakt CLI')
             ->addArgument('action', InputArgument::REQUIRED, 'Action to execute')
-            ->addArgument('entity', InputArgument::REQUIRED, 'Target entity')
-            ->addArgument('params', InputArgument::IS_ARRAY, 'Parameters')
+            ->addArgument('entity', InputArgument::REQUIRED, 'Entity name')
+            ->addArgument('id', InputArgument::OPTIONAL, 'The entity unique identifier')
             ->addOption('token', 't', InputOption::VALUE_OPTIONAL, 'Artifakt API Token');
     }
 
@@ -95,7 +95,10 @@ class ArtifaktCommand extends Command
             throw new \Exception(sprintf('Entity : "%s" is not available.', $entity));
         }
 
-        $builder->setEntity($entity);
+        $builder
+            ->setEntity($entity)
+            ->setParam($input->getArgument('id'));
+
 
         switch ($action) {
             case ActionList::CREATE:
@@ -119,7 +122,7 @@ class ArtifaktCommand extends Command
             ->setMethod($method)
             ->addHeader('ARTIFAKT-HELLO-TOKEN', $this->token)
             ->addHeader('CONTENT-TYPE', 'application/json')
-            ->setBody('Hello')
+            ->setBody('{"message": "hello"}')
             ->getRequest();
 
         $promise = $this->client->sendAsync($request);
@@ -133,6 +136,7 @@ class ArtifaktCommand extends Command
             },
             function (RequestException $e) use ($output) {
                 $output->writeln($e->getMessage());
+                $output->writeln($e->getResponse()->getBody()->getContents());
                 $output->writeln($e->getRequest()->getMethod());
             }
         );
