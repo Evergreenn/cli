@@ -46,15 +46,18 @@ class ApplicationBuilder
     {
         $this->container
             ->register('client', Client::class)
-            ->addArgument(['base_uri' => Application::URI]);
+            ->addArgument(['base_uri' => Application::URI])
+            ->setPublic(false);
 
         $this->container
             ->register('url.generator', UrlGenerator::class)
-            ->addArgument(Application::URI);
+            ->addArgument(Application::URI)
+            ->setPublic(false);
 
         $this->container
             ->register('request.factory', RequestFactory::class)
-            ->addArgument(new Reference('url.generator'));
+            ->addArgument(new Reference('url.generator'))
+            ->setPublic(false);
 
         $token = $this->container->hasParameter('artifakt_api_token')
             ? $this->container->getParameter('artifakt_api_token')
@@ -65,7 +68,8 @@ class ApplicationBuilder
             ->addArgument('artifakt-cli')
             ->addArgument(new Reference('client'))
             ->addArgument(new Reference('request.factory'))
-            ->addArgument($token);
+            ->addArgument($token)
+            ->setPublic(false);
 
         $this->container
             ->register('application', Application::class)

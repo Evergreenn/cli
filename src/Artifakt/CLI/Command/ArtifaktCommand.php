@@ -67,7 +67,7 @@ class ArtifaktCommand extends Command
             ->addArgument('action', InputArgument::REQUIRED, 'Action to execute')
             ->addArgument('entity', InputArgument::REQUIRED, 'Target entity')
             ->addArgument('params', InputArgument::IS_ARRAY, 'Parameters')
-            ->addOption('token', 'tk', InputOption::VALUE_OPTIONAL, 'Artifakt API Token');
+            ->addOption('token', 't', InputOption::VALUE_OPTIONAL, 'Artifakt API Token');
     }
 
     /**
