@@ -8,11 +8,11 @@ PHP CLI to use Artifakt's API.
 ****
 **Usage**
 
-`$ bin/artifakt-cli --token="<YOUR_API_TOKEN>" create project name=hello code=world description="Awesome hello world project"`
+`$ bin/artifakt-cli --token="1234" get hello`
 
 ****
 **Contribution**
-
+See the [todo list](TODO.md).
 Fill free to open PR.
 ****
 **Disclaimer**
