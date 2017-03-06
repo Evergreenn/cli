@@ -28,6 +28,11 @@ class RequestBuilder
     private $entity;
 
     /**
+     * @var string|null
+     */
+    private $param;
+
+    /**
      * @var array
      */
     private $headers = [];
@@ -96,6 +101,18 @@ class RequestBuilder
     }
 
     /**
+     * @param string|null $param
+     *
+     * @return RequestBuilder
+     */
+    public function setParam(string $param = null) : RequestBuilder
+    {
+        $this->param = $param;
+
+        return $this;
+    }
+
+    /**
      * @param string $key
      * @param string $value
      *
@@ -141,7 +158,7 @@ class RequestBuilder
     {
         return $this->requestFactory->create(
             $this->method,
-            $this->urlGenerator->generate($this->action, $this->entity),
+            $this->urlGenerator->generate($this->action, $this->entity, $this->param),
             $this->body,
             $this->headers
         );
