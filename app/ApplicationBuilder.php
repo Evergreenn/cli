@@ -60,7 +60,9 @@ class ApplicationBuilder
             ->addArgument(new Reference('url.generator'))
             ->setPublic(false);
 
-        $token = $this->container->hasParameter('artifakt_api_token') ?? null;
+        $token = $this->container->hasParameter('artifakt_api_token')
+            ? $this->container->getParameter('artifakt_api_token')
+            : null;
 
         $this->container
             ->register('artifakt-cli', ArtifaktCommand::class)
