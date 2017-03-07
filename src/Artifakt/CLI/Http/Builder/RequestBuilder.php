@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Artifakt\CLI\Http\Builder;
 
@@ -101,11 +102,11 @@ class RequestBuilder
     }
 
     /**
-     * @param string|null $param
+     * @param string $param
      *
      * @return RequestBuilder
      */
-    public function setParam(string $param = null) : RequestBuilder
+    public function setParam(string $param = '') : RequestBuilder
     {
         $this->param = $param;
 

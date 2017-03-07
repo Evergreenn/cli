@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Artifakt\CLI\Command;
 
@@ -39,17 +40,23 @@ class ArtifaktCommand extends Command
     /**
      * ArtifaktCommand constructor.
      *
-     * @param null|string     $name
+     * @param string     $name
      * @param ClientInterface $client
      * @param RequestFactory  $requestFactory
-     * @param null|string     $token
+     * @param string     $token
      */
     public function __construct(
         string $name,
         ClientInterface $client,
         RequestFactory $requestFactory,
-        string $token = null
+        string $token = ''
     ) {
+
+        //Thanks symfony for strict typing we love it <3
+        if(empty($name)){
+            $name = null;
+        }
+
         parent::__construct($name);
 
         $this->client = $client;
@@ -83,7 +90,7 @@ class ArtifaktCommand extends Command
         $builder = $this->requestFactory->createBuilder();
 
         $action = $input->getArgument('action');
-        if (!in_array($action, ActionList::getActions())) {
+        if (!\in_array($action, ActionList::getActions())) {
             // Throw new ActionNotAvailableException ? InvalidArgumentException ?
             throw new \Exception(sprintf('Action : "%s" is not available.', $action));
         }
@@ -91,9 +98,9 @@ class ArtifaktCommand extends Command
         $builder->setAction($action);
 
         $entity = $input->getArgument('entity');
-        if (!in_array($entity, EntityList::getEntities())) {
+        if (!\in_array($entity, EntityList::getEntities())) {
             // Throw new EntityNotAvailableException ? InvalidArgumentException ?
-            throw new \Exception(sprintf('Entity : "%s" is not available.', $entity));
+            throw new \Exception(\sprintf('Entity : "%s" is not available.', $entity));
         }
 
         $builder
@@ -121,8 +128,8 @@ class ArtifaktCommand extends Command
 
         $body = '';
         $json = $input->getArgument('json');
-        if (null !== $json && is_file($json)) {
-            $body = file_get_contents($json); // Better way?
+        if (null !== $json && \is_file($json)) {
+            $body = \file_get_contents($json); // Better way?
         }
 
         $request = $builder

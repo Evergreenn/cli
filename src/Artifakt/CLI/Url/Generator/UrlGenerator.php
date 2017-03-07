@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Artifakt\CLI\Url\Generator;
 
@@ -29,14 +30,14 @@ class UrlGenerator
     /**
      * @param string      $action
      * @param string      $entity
-     * @param string|null $param
+     * @param string $param
      *
      * @return string
      */
-    public function generate(string $action, string $entity, string $param = null) : string
+    public function generate(string $action, string $entity, string $param = '') : string
     {
         $url = $this->baseUri.Pluralizer::pluzalize($entity);
-        if (!in_array($action, [ActionList::CREATE, ActionList::LIST]) && null !== $param) {
+        if (!\in_array($action, [ActionList::CREATE, ActionList::LIST]) && !empty($param)) {
             $url .= '/'.$param;
         }
 

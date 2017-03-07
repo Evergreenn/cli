@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Artifakt\CLI\Entities\Source;
 
@@ -16,7 +17,7 @@ class EntityList
      */
     public static function getEntities() : array
     {
-        $reflection = new \ReflectionClass(get_called_class());
+        $reflection = new \ReflectionClass(\get_called_class());
 
         return $reflection->getConstants();
     }
