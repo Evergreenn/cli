@@ -38,7 +38,7 @@ class RequestBuilder
     private $headers = [];
 
     /**
-     * @var mixed
+     * @var string
      */
     private $body;
 
